@@ -1,0 +1,58 @@
+[
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x77a92ca9",
+        "confidence_score": "0/272 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x77a92cb3",
+        "confidence_score": "0/270 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x77a92cc8",
+        "confidence_score": "0/270 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x77a92cd5",
+        "confidence_score": "0/271 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x77a9625b",
+        "confidence_score": "0/148 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x301e84",
+        "confidence_score": "20/119616 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x301e8c",
+        "confidence_score": "4/119616 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "w"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x77a64a4f",
+        "confidence_score": "0/5 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "w"
+    }
+]
