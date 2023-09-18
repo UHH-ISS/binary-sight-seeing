@@ -1,0 +1,30 @@
+[
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x76c4dff0",
+        "confidence_score": "36/104 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x192ac6",
+        "confidence_score": "26/25 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x19167a",
+        "confidence_score": "10/42 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "r"
+    },
+    {
+        "poi_type": "MemoryPoi",
+        "address": "0x191651",
+        "confidence_score": "4/20 ",
+        "extractor": "CLIContiguousPoiExtractor",
+        "details": "w"
+    }
+]
