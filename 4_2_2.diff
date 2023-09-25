@@ -1,0 +1,189 @@
+diff --git a/python-puppeteer/auto_puppeteer.ini b/python-puppeteer/auto_puppeteer.ini
+index af6e757..90e75d6 100644
+--- a/python-puppeteer/auto_puppeteer.ini
++++ b/python-puppeteer/auto_puppeteer.ini
+@@ -12,14 +12,14 @@ user = admin
+ password = WrfQ43K5twrcXxQXQcGjexoQP
+ 
+ [agent]
+-host = 10.0.2.101
++host = 190.30.30.30
+ 
+ [general]
+ create_text_log = yes
+ max_trace_count = 1000
+-download_setup_output = yes
++download_setup_output = no
+ dump_processes = yes
+-puppet_vm_ip = 99.99.0.99
++puppet_vm_ip = 190.30.30.30
+ confidence_score_threshold = -1
+ ; mandatory_retry_count = 5
+ crawl_n_times = 100
+@@ -31,7 +31,7 @@ trace_split_limit = 5000000
+ parallel_cores = 12
+ peer_crawl_timeout_hard = 60
+ poi_extractor_naive = yes
+-poi_extractor_memory_pattern = yes
++poi_extractor_memory_pattern = no
+ 
+ [local_botnets]
+ sality = 300-320
+diff --git a/python-puppeteer/auto_puppeteer.py b/python-puppeteer/auto_puppeteer.py
+index 100c0a6..f5dbc3b 100644
+--- a/python-puppeteer/auto_puppeteer.py
++++ b/python-puppeteer/auto_puppeteer.py
+@@ -24,12 +24,12 @@ def parse_config(config: configparser.ConfigParser, args: argparse.Namespace, co
+             name="puppet_vm"
+         )
+ 
+-        router = SshIptablesRouter(
+-            config["router"].get("host"),
+-            config["router"].get("user"),
+-            config["router"].get("password"),
+-            port=config["router"].getint("port", 22)
+-        )
++        router = None # SshIptablesRouter(
++        #     config["router"].get("host"),
++        #     config["router"].get("user"),
++        #     config["router"].get("password"),
++        #     port=config["router"].getint("port", 22)
++        # )
+     else:
+         vm = None
+         router = None
+diff --git a/python-puppeteer/download_packages.sh b/python-puppeteer/download_packages.sh
+old mode 100644
+new mode 100755
+diff --git a/python-puppeteer/local_botnet_peers/zeroaccess.txt b/python-puppeteer/local_botnet_peers/zeroaccess.txt
+index ba8da2b..e8ce8b8 100644
+--- a/python-puppeteer/local_botnet_peers/zeroaccess.txt
++++ b/python-puppeteer/local_botnet_peers/zeroaccess.txt
+@@ -1,41 +1,3 @@
+-100.100.0.100:16471
+-101.101.0.101:16471
+-102.102.0.102:16471
+-103.103.0.103:16471
+-104.104.0.104:16471
+-105.105.0.105:16471
+-106.106.0.106:16471
+-107.107.0.107:16471
+-108.108.0.108:16471
+-109.109.0.109:16471
+-110.110.0.110:16471
+-111.111.0.111:16471
+-112.112.0.112:16471
+-113.113.0.113:16471
+-114.114.0.114:16471
+-115.115.0.115:16471
+-116.116.0.116:16471
+-117.117.0.117:16471
+-118.118.0.118:16471
+-119.119.0.119:16471
+-120.120.0.120:16471
+-121.121.0.121:16471
+-122.122.0.122:16471
+-123.123.0.123:16471
+-124.124.0.124:16471
+-125.125.0.125:16471
+-126.126.0.126:16471
+-128.128.0.128:16471
+-129.129.0.129:16471
+-130.130.0.130:16471
+-131.131.0.131:16471
+-132.132.0.132:16471
+-133.133.0.133:16471
+-134.134.0.134:16471
+-135.135.0.135:16471
+-136.136.0.136:16471
+-137.137.0.137:16471
+-138.138.0.138:16471
+-139.139.0.139:16471
+-140.140.0.140:16471
+-212.22.47.230:16471
+\ No newline at end of file
++190.186.175.13:16471
++190.10.10.10:16471
++190.20.20.20:16471
+\ No newline at end of file
+diff --git a/python-puppeteer/puppeteering/auto_puppeteer.py b/python-puppeteer/puppeteering/auto_puppeteer.py
+index 929539d..9b6f822 100644
+--- a/python-puppeteer/puppeteering/auto_puppeteer.py
++++ b/python-puppeteer/puppeteering/auto_puppeteer.py
+@@ -219,11 +219,11 @@ class AutoPuppeteer(ABC):
+             if f <= AutoPuppeteerPhase.CRAWL and AutoPuppeteerPhase.CRAWL <= to:
+                 poi_extractors = self.analyze_data(self.collect_data_path)
+                 self.export_pois(poi_extractors)
+-                if self.config.crawl_n_times is None:
+-                    self.crawl(poi_extractors)
+-                else:
+-                    self.crawl_n_times(poi_extractors)
+-                self.__store_state()
++                # if self.config.crawl_n_times is None:
++                #     self.crawl(poi_extractors)
++                # else:
++                #     self.crawl_n_times(poi_extractors)
++                # self.__store_state()
+ 
+         except:
+             self.error_handler()
+diff --git a/python-puppeteer/puppeteering/vm.py b/python-puppeteer/puppeteering/vm.py
+index bd1050a..42337ea 100644
+--- a/python-puppeteer/puppeteering/vm.py
++++ b/python-puppeteer/puppeteering/vm.py
+@@ -68,7 +68,7 @@ class ProxmoxVM(VirtualMachine):
+         self.user = user
+         self.password = password
+         self.proxmox_time = time.time()
+-        self.proxmox_ = ProxmoxAPI(host, user=user, password=password, verify_ssl=False)
++        self.proxmox_ = None # ProxmoxAPI(host, user=user, password=password, verify_ssl=False)
+         self.name = name
+         self.random_mouse_movements = False
+ 
+@@ -120,46 +120,18 @@ class ProxmoxVM(VirtualMachine):
+ 
+     def start(self):
+         super().start()
+-        self.vm().status.start.post()
+-        self.__wait_for_started()
+ 
+     def start_from(self, snapshot_id: str):
+         super().start_from(snapshot_id)
+-        success = False
+-        while not success:
+-            self.vm().snapshot(snapshot_id).rollback.post()
+-            # TODO: make this an argument if needed
+-            # self.vm().status.start.post()
+-            success = self.__wait_for_started(timeout=600)
+ 
+     def take_snapshot(self, snapshot_id: str, description: str=""):
+         super().take_snapshot(snapshot_id, description=description)
+-        # Always try to create live snapshots.
+-        # If the VM is not running this is not a problem.
+-        self.vm().snapshot.post(snapname=snapshot_id, vmstate=1, description=description)
+-        self.__wait_for_unlock()
+ 
+     def delete_snapshot(self, snapshot_id: str):
+         super().delete_snapshot(snapshot_id)
+-        self.vm().snapshot(snapshot_id).delete()
+-        self.__wait_for_unlock()
+ 
+     def stop(self):
+         super().stop()
+-        i = 0
+-        while True:
+-            try:
+-                self.vm().status.stop.post()
+-            except proxmoxer.ResourceException as err:
+-                if "500 Internal Server Error: got no worker upid" in err.args[0]:
+-                    i += 1
+-                    if i == 10:
+-                        raise
+-                    time.sleep(1)
+-                else:
+-                    raise
+-            else:
+-                break
+ 
+ 
+     def __str__(self) -> str:
