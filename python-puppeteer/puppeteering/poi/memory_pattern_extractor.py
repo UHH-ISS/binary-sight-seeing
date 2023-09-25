@@ -1,14 +1,13 @@
 from dataclasses import dataclass, field
 from os import access, pathsep
 from re import T
-from sqlite3 import Time
 from puppeteering.ins_log_reader import InstrumentedInstruction
 from typing import List, Tuple, Dict, Set
 from ..trace_reader import TraceLine, TraceLineType, all_trace_lines
 import fire
 import json
 
-debug_mode = False
+debug_mode = True
 
 @dataclass(init=False)
 class MemoryPattern:
@@ -52,6 +51,8 @@ class MemoryPatternExtractor:
 
         self._memory_patterns: List[MemoryPattern] = []
         self._max_pattern_lenght: int = 0
+        self.ips_debug = set()
+
 
         
     @property
@@ -98,12 +99,18 @@ class MemoryPatternExtractor:
                 for ip in pattern.write_accessed_instructions:
                     self.visited_write_instr_addr.add(ip[0])
                     
-        
+
     def process_traceline(self, traceline: TraceLine, find_pois=True):
         """Processes the tracelines, building the memory map.
         find_pois: If true, find POIs, if false, rate them
         """
-                    
+
+        # if traceline.instruction_address not in self.ips_debug:
+        #     print("DEBUG", hex(traceline.instruction_address))
+        #     self.ips_debug.add(traceline.instruction_address)
+        #     if traceline.instruction_address < 0x10007000 and traceline.instruction_address > 0x10000000:
+        #         print("MegaDebug", traceline)
+        
         if traceline.type != TraceLineType.MEM_R and traceline.type != TraceLineType.MEM_W:
             return
 

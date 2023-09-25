@@ -63,6 +63,8 @@ Before using the Pintool, make sure the following tools are loaded onto your Win
 
 ---
 ## 3. Analyzing the execution trace
+To analyze the execution trace, you can use any OS running Python3 along with the required packages, including 'fire'. In this example, we are using the Windows operating system.
+
 ### 3.1 Analyzing
 In the example of Locky ransomware, you can locate all the relevant files within [/python-puppeteer/locky-trace-data](/python-puppeteer/locky-trace-data):
 - The execution trace archive: `ransomlocky_trace.zip` (unzip this file first)
@@ -103,7 +105,7 @@ Locky example: Loading memory, xoring with something, writing memory. Might be a
 Note that are not in any registered module of locky but a raw memory region. 
 1. Load the dumped memory/executable into Ghidra/IDA. Pay attention to rebase the program as needed. Note that sometimes an additional offset is required. For instance, if your sample (the provided sample) has an offset of 0xC00, rebase to 0x300000 - 0xC00 = `0x2FF400`.
 2. Use the provided IDA/Ghidra Python script [/plugins/ida.py](/plugins/ida.py) to import the POIs.
-
+To execute our script in IDA, go to 'File', select 'Script File', and choose the IDA script file. For GHidra, import our script through the Script Manager in the 'Window' menu. You can either add the script manually or include the folder containing it.
 
 ---
 ## 4. Botnet Monitoring
